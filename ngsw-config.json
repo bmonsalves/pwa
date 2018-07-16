@@ -24,7 +24,8 @@
   "dataGroups": [{
     "name": "redditAPI",
     "urls": [
-      "https://www.reddit.com/r/pics.json"
+      "https://www.reddit.com/r/pics.json",
+      "https://www.reddit.com/r/**"
     ],
     "cacheConfig": {
       "strategy": "performance",
