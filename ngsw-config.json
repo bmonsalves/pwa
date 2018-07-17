@@ -22,14 +22,13 @@
     }
   }],
   "dataGroups": [{
-    "name": "redditAPI",
+    "name": "firebaseNotesApi",
     "urls": [
-      "https://www.reddit.com/r/pics.json",
-      "https://www.reddit.com/r/**"
+      "https://notas-b6f9f.firebaseio.com/**"
     ],
     "cacheConfig": {
-      "strategy": "performance",
-      "maxAge": "1d",
+      "strategy": "freshness",
+      "maxAge": "1h",
       "maxSize": 100,
       "timeOut": "3s"
     }

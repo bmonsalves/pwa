@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SwUpdate} from '@angular/service-worker';
 import {NotesService} from '../services/notes.service';
 import {MatSnackBar} from '@angular/material';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +15,12 @@ export class AppComponent implements OnInit {
   panelOpenState = false;
   note: any = {};
   notes: any = [];
+  isLogged = false;
+  user: any = {};
 
   constructor(private swUpdate: SwUpdate,
               private noteService: NotesService,
+              private authService: AuthService,
               public snackBar: MatSnackBar) {
   }
 
@@ -28,6 +32,8 @@ export class AppComponent implements OnInit {
         }
       });
     }
+
+    this.checkLogin();
 
     this.noteService.getNotes().valueChanges()
       .subscribe((notes) => {
@@ -61,6 +67,20 @@ export class AppComponent implements OnInit {
     });
   }
 
+  public login() {
+    this.authService.loginWithFacebook().then((response) => {
+      console.log(response);
+      this.isLogged = true;
+    });
+  }
+
+  public logout() {
+    this.authService.logout().then((response) => {
+      console.log(response);
+      this.isLogged = false;
+    });
+  }
+
   private editNote () {
     this.noteService.editNote(this.note).then(() => {
       this.note = {};
@@ -71,11 +91,30 @@ export class AppComponent implements OnInit {
   }
 
   private createNote () {
+    this.note.user = this.user;
     this.noteService.createNote(this.note).then(() => {
       this.note = {};
       this.snackBar.open(`Nota creada correctamente`, `cerrar`, {
         duration: 2000,
       });
     });
+  }
+
+  private checkLogin(): void {
+    this.authService.isLogged()
+      .subscribe(result => {
+        if (result && result.uid) {
+          const { displayName, uid } = result;
+          this.user.displayName = displayName;
+          this.user.uid = uid;
+          this.isLogged = true;
+          return;
+        }
+
+        this.isLogged = false;
+
+      }, err => {
+        this.isLogged = false;
+      });
   }
 }
