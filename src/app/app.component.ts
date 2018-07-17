@@ -3,6 +3,7 @@ import {SwUpdate} from '@angular/service-worker';
 import {NotesService} from '../services/notes.service';
 import {MatSnackBar} from '@angular/material';
 import {AuthService} from '../services/auth.service';
+import {MessagingService} from '../services/messaging.service';
 
 @Component({
   selector: 'app-root',
@@ -17,11 +18,17 @@ export class AppComponent implements OnInit {
   notes: any = [];
   isLogged = false;
   user: any = {};
+  message: any = {};
 
   constructor(private swUpdate: SwUpdate,
               private noteService: NotesService,
               private authService: AuthService,
+              private messagingService: MessagingService,
               public snackBar: MatSnackBar) {
+
+    this.messagingService.getPermission();
+    this.messagingService.receiveMessage();
+    this.message = this.messagingService.currentMessage;
   }
 
   ngOnInit(): void {
@@ -104,9 +111,10 @@ export class AppComponent implements OnInit {
     this.authService.isLogged()
       .subscribe(result => {
         if (result && result.uid) {
-          const { displayName, uid } = result;
+          const { displayName, uid, email } = result;
           this.user.displayName = displayName;
           this.user.uid = uid;
+          this.user.email = email;
           this.isLogged = true;
           return;
         }

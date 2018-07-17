@@ -10,6 +10,7 @@
       <p>{{user.displayName}}</p>
       <button mat-raised-button color="warn" (click)="logout()">Cerrar sesión</button>
     </div>
+    {{message | async | json}}
     <button mat-raised-button color="primary" (click)="login()" *ngIf="!isLogged">Iniciar sesión</button>
   </h2>
 </div>
@@ -57,8 +58,8 @@
         <p matLine> {{ note.description }} </p>
         <p matLine> {{ note.category }} </p>
         <div *ngIf="isLogged">
-          <button mat-button color="primary" (click)="selectNote(note)" *ngIf="user.uid === note.user.uid">Editar</button>
-          <button mat-button color="warn" (click)="deleteNote(note)" *ngIf="user.uid === note.user.uid">Eliminar</button>
+          <button mat-button color="primary" (click)="selectNote(note)" *ngIf="user.email === note.user.email">Editar</button>
+          <button mat-button color="warn" (click)="deleteNote(note)" *ngIf="user.email === note.user.email">Eliminar</button>
         </div>
       </mat-list-item>
     </mat-card-content>

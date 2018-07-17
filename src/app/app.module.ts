@@ -14,6 +14,7 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {FormsModule} from '@angular/forms';
 import {NotesService} from '../services/notes.service';
 import {AuthService} from '../services/auth.service';
+import {MessagingService} from '../services/messaging.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {AuthService} from '../services/auth.service';
   ],
   providers: [
     NotesService,
-    AuthService
+    AuthService,
+    MessagingService
   ],
   bootstrap: [AppComponent]
 })

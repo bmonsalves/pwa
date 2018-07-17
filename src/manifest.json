@@ -4,7 +4,7 @@
   "name": "Angular PWA",
   "scope": "/",
   "display": "fullscreen",
-  "start_url": "http://127.0.0.1:8080/",
+  "start_url": "https://notas-b6f9f.firebaseapp.com/",
   "short_name": "Angular PWA test",
   "theme_color": "transparent",
   "description": "",
@@ -12,6 +12,7 @@
   "background_color": "transparent",
   "related_applications": [],
   "prefer_related_applications": false,
+  "gcm_sender_id":"103953800507",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",
